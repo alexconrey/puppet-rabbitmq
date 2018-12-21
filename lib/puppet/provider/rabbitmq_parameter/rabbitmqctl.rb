@@ -11,7 +11,7 @@ Puppet::Type.type(:rabbitmq_parameter).provide(:rabbitmqctl, parent: Puppet::Pro
     unless @parameters[vhost]
       @parameters[vhost] = {}
       parameter_list = run_with_retries do
-        rabbitmqctl(exec_args, 'list_parameters', '-p', vhost)
+        rabbitmqctl(self.class.exec_args, 'list_parameters', '-p', vhost)
       end
       parameter_list.split(%r{\n}).each do |line|
         raise Puppet::Error, "cannot parse line from list_parameter:#{line}" unless line =~ %r{^(\S+)\s+(\S+)\s+(\S+)$}
