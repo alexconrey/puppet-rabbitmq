@@ -25,7 +25,7 @@ Puppet::Type.type(:rabbitmq_binding).provide(:rabbitmqadmin) do
 
   def self.all_vhosts
     vhosts = []
-    rabbitmqctl("#{@format_table_headers} -q list_vhosts".split(' ')).split(%r{\n}).map do |vhost|
+    rabbitmqctl(exec_args, '-list_vhosts').split(%r{\n}).map do |vhost|
       vhosts.push(vhost)
     end
     vhosts
